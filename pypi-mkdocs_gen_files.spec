@@ -5,12 +5,13 @@
 #
 Name     : pypi-mkdocs_gen_files
 Version  : 0.4.0
-Release  : 1
+Release  : 2
 URL      : https://files.pythonhosted.org/packages/19/fa/064b85a1b0d11d77a8458e1bfac50decc8d467ac866e75ccb5a6483c5c1f/mkdocs-gen-files-0.4.0.tar.gz
 Source0  : https://files.pythonhosted.org/packages/19/fa/064b85a1b0d11d77a8458e1bfac50decc8d467ac866e75ccb5a6483c5c1f/mkdocs-gen-files-0.4.0.tar.gz
 Summary  : MkDocs plugin to programmatically generate documentation pages during the build
 Group    : Development/Tools
 License  : MIT
+Requires: pypi-mkdocs_gen_files-license = %{version}-%{release}
 Requires: pypi-mkdocs_gen_files-python = %{version}-%{release}
 Requires: pypi-mkdocs_gen_files-python3 = %{version}-%{release}
 BuildRequires : buildreq-distutils3
@@ -22,6 +23,14 @@ BuildRequires : pypi(poetry)
 %description
 # mkdocs-gen-files
 **[Plugin][] for [MkDocs][] to programmatically generate documentation pages during the build**
+
+%package license
+Summary: license components for the pypi-mkdocs_gen_files package.
+Group: Default
+
+%description license
+license components for the pypi-mkdocs_gen_files package.
+
 
 %package python
 Summary: python components for the pypi-mkdocs_gen_files package.
@@ -55,7 +64,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1681502032
+export SOURCE_DATE_EPOCH=1681788007
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -79,6 +88,8 @@ popd
 %install
 export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/package-licenses/pypi-mkdocs_gen_files
+cp %{_builddir}/mkdocs-gen-files-%{version}/LICENSE.md %{buildroot}/usr/share/package-licenses/pypi-mkdocs_gen_files/94257d0054baf17fe05c1e8586dfaa0b3ebafb62 || :
 pip install --root=%{buildroot} --no-deps --ignore-installed dist/*.whl
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
@@ -95,6 +106,10 @@ popd
 
 %files
 %defattr(-,root,root,-)
+
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/pypi-mkdocs_gen_files/94257d0054baf17fe05c1e8586dfaa0b3ebafb62
 
 %files python
 %defattr(-,root,root,-)
