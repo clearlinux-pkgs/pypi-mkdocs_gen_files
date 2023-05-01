@@ -4,10 +4,10 @@
 # Using build pattern: pyproject
 #
 Name     : pypi-mkdocs_gen_files
-Version  : 0.4.0
-Release  : 2
-URL      : https://files.pythonhosted.org/packages/19/fa/064b85a1b0d11d77a8458e1bfac50decc8d467ac866e75ccb5a6483c5c1f/mkdocs-gen-files-0.4.0.tar.gz
-Source0  : https://files.pythonhosted.org/packages/19/fa/064b85a1b0d11d77a8458e1bfac50decc8d467ac866e75ccb5a6483c5c1f/mkdocs-gen-files-0.4.0.tar.gz
+Version  : 0.5.0
+Release  : 3
+URL      : https://files.pythonhosted.org/packages/48/85/2d634462fd59136197d3126ca431ffb666f412e3db38fd5ce3a60566303e/mkdocs_gen_files-0.5.0.tar.gz
+Source0  : https://files.pythonhosted.org/packages/48/85/2d634462fd59136197d3126ca431ffb666f412e3db38fd5ce3a60566303e/mkdocs_gen_files-0.5.0.tar.gz
 Summary  : MkDocs plugin to programmatically generate documentation pages during the build
 Group    : Development/Tools
 License  : MIT
@@ -15,7 +15,7 @@ Requires: pypi-mkdocs_gen_files-license = %{version}-%{release}
 Requires: pypi-mkdocs_gen_files-python = %{version}-%{release}
 Requires: pypi-mkdocs_gen_files-python3 = %{version}-%{release}
 BuildRequires : buildreq-distutils3
-BuildRequires : pypi(poetry)
+BuildRequires : pypi(hatchling)
 # Suppress stripping binaries
 %define __strip /bin/true
 %define debug_package %{nil}
@@ -53,10 +53,10 @@ python3 components for the pypi-mkdocs_gen_files package.
 
 
 %prep
-%setup -q -n mkdocs-gen-files-0.4.0
-cd %{_builddir}/mkdocs-gen-files-0.4.0
+%setup -q -n mkdocs_gen_files-0.5.0
+cd %{_builddir}/mkdocs_gen_files-0.5.0
 pushd ..
-cp -a mkdocs-gen-files-0.4.0 buildavx2
+cp -a mkdocs_gen_files-0.5.0 buildavx2
 popd
 
 %build
@@ -64,15 +64,15 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1681788007
+export SOURCE_DATE_EPOCH=1682973838
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
-export FCFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
-export FFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
-export CXXFLAGS="$CXXFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
+export CFLAGS="$CFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export FCFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export FFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export CXXFLAGS="$CXXFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
 export MAKEFLAGS=%{?_smp_mflags}
 python3 -m build --wheel --skip-dependency-check --no-isolation
 pushd ../buildavx2/
@@ -89,7 +89,7 @@ popd
 export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/pypi-mkdocs_gen_files
-cp %{_builddir}/mkdocs-gen-files-%{version}/LICENSE.md %{buildroot}/usr/share/package-licenses/pypi-mkdocs_gen_files/94257d0054baf17fe05c1e8586dfaa0b3ebafb62 || :
+cp %{_builddir}/mkdocs_gen_files-%{version}/LICENSE.md %{buildroot}/usr/share/package-licenses/pypi-mkdocs_gen_files/94257d0054baf17fe05c1e8586dfaa0b3ebafb62 || :
 pip install --root=%{buildroot} --no-deps --ignore-installed dist/*.whl
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
