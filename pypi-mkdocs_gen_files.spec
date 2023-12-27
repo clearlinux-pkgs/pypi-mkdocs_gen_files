@@ -5,7 +5,7 @@
 #
 Name     : pypi-mkdocs_gen_files
 Version  : 0.5.0
-Release  : 4
+Release  : 5
 URL      : https://files.pythonhosted.org/packages/48/85/2d634462fd59136197d3126ca431ffb666f412e3db38fd5ce3a60566303e/mkdocs_gen_files-0.5.0.tar.gz
 Source0  : https://files.pythonhosted.org/packages/48/85/2d634462fd59136197d3126ca431ffb666f412e3db38fd5ce3a60566303e/mkdocs_gen_files-0.5.0.tar.gz
 Summary  : MkDocs plugin to programmatically generate documentation pages during the build
